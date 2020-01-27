@@ -92,6 +92,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#notion-de-cas-de-test">Notion de cas de test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#scenario-de-test">Scénario de test</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#rapport-de-test">Rapport de test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exercice">Exercice</a></li>
 </ul>
 </li>
 </ul>
@@ -326,6 +327,50 @@ conforme aux exigences (méthode de gestion de projet) ou à la <em>user story</
 <h3>Rapport de test<a class="headerlink" href="#rapport-de-test" title="Lien permanent vers ce titre">¶</a></h3>
 <p>Une session de test produit un rapport de test. Ce document atteste du succès
 ou de l’échec des scénarios de test.</p>
+</div>
+<div class="section" id="exercice">
+<h3>Exercice<a class="headerlink" href="#exercice" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="exercice admonition">
+<p class="admonition-title">Cahier de tests pour une application de commande de pizza</p>
+<p>Rédigez le cahier de test pour une application de commandes de pizza. Le cahier de test
+doit contenir :</p>
+<ul class="simple">
+<li><p>La liste des cas de test</p></li>
+<li><p>La liste des scénarios de test</p></li>
+</ul>
+<p>Vous devez couvrir l’ensemble des fonctionnalités de l’application :</p>
+<ul class="simple">
+<li><p>commander une pizza,</p></li>
+<li><p>préparer une pizza,</p></li>
+</ul>
+<p>Vous pouvez présenter votre cahier de test sous la forme de plusieurs feuilles
+de tableur. Les cas de tests sont définis par un nom, les étapes de réalisation
+et le résultat attendu. Les scénarios de test son définis par un nom et
+la liste des cas de test qui le compose.</p>
+<p><strong>Pizza EE</strong></p>
+<dl>
+<dt>Finaliser la commande de pizza</dt><dd><p>L’utilisateur remplit le formulaire de commande avec la pizza choisie (il ne peut en choisir qu’une),
+son nom et son numéro de téléphone. Lorsqu’il clique sur le bouton <span class="guilabel">Commander</span>, les
+données doivent être envoyées au serveur et une commande doit être créée. Une page récapitulant la
+commande doit s’afficher avec les pizzas choisies et la date et l’heure de création de la commande.
+Tous les champs doivent être obligatoirement saisis par l’utilisateur (sinon le formulaire doit être à
+nouveau affiché avec des messages précisant les champs erronés).</p>
+<p>Une fois la commande créée, il est possible de passer une nouvelle commande.</p>
+</dd>
+<dt>Préparer une pizza</dt><dd><p>Pour la préparation d’une pizza, l’application doit disposer d’un nouvel écran qui affiche la liste des
+commandes de pizzas sous la forme d’un tableau. Le tableau doit indiquer le nom de la personne
+qui a commandé la pizza et l’heure de la commande. Ce tableau est trié dans l’ordre chronologique
+(la commande la plus ancienne est en première position). Sur cet écran, apparaît également un
+bouton <span class="guilabel">commande suivante</span>.
+Quand l’utilisateur clique sur ce bouton, un nouvel écran s’affiche avec le détail de la commande :
+la date, le nom et le téléphone de la personne qui a commandé. On indique la pizza commandée et sa composition
+(la liste des ingrédients). Cet écran contient un bouton <span class="guilabel">pizza prête</span>. Quand l’utilisateur
+clique sur ce bouton, la commande n’est plus en attente. Elle ne s’affiche donc plus dans le tableau
+des commandes. Ce tableau est à nouveau affiché afin de permettre de passer à la commande
+suivante.</p>
+</dd>
+</dl>
+</div>
 </div>
 </div>
 </div>
