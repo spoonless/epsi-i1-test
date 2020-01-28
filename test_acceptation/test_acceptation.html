@@ -371,6 +371,66 @@ suivante.</p>
 </dd>
 </dl>
 </div>
+<div class="exercice admonition">
+<p class="admonition-title">Introduction à cURL</p>
+<p>cURL est un outil en ligne de commande permettant de récupérer des
+données à partir d’une URL. Il supporte de nombreux protocoles dont
+HTTP. Vous le téléchargez à partir <a class="reference external" href="https://curl.haxx.se/download.html">du site
+officiel</a>.</p>
+<p>Utilisation simple de cURL</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl https://duckduckgo.com/
+</pre></div>
+</div>
+<p>cURL offre de nombreuses options. Celles qui vont nous être utiles :</p>
+<dl class="simple">
+<dt><cite>-i</cite></dt><dd><p>Affiche le contenu complet de la réponse HTTP. On visualise ainsi la
+ligne de statut et les en-têtes retournés par le serveur.</p>
+</dd>
+<dt><cite>-v</cite></dt><dd><p>Mode verbeux affichant notamment la requête émise et la réponse reçue.</p>
+</dd>
+<dt><cite>-X</cite> [méthode]</dt><dd><p>Permet de préciser la méthode HTTP à utiliser dans la requête (<code class="docutils literal notranslate"><span class="pre">GET</span></code> par défaut).</p>
+</dd>
+<dt><cite>-H</cite> « [en-tête] »</dt><dd><p>Permet d’ajouter ou de modifier un en-tête de la requête.</p>
+</dd>
+<dt><cite>–data-binary</cite> [data]</dt><dd><p>Ajoute les données spécifiées comme corps du message.
+Vous pouvez également spécifier le chemin d’un fichier en
+commençant le chemin par <code class="docutils literal notranslate"><span class="pre">&#64;</span></code>.</p>
+</dd>
+<dt><cite>-o</cite> [nom de fichier]</dt><dd><p>Permet de sauvegarder la réponse retournée par le serveur dans un
+fichier.</p>
+</dd>
+</dl>
+<p>Utilisation avancée de cURL</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl -v -X GET -H <span class="s2">&quot;Accept: text/html&quot;</span> https://duckduckgo.com/ -o /dev/null
+</pre></div>
+</div>
+<p>L’exemple ci-dessus permet d’obtenir une exécution en mode verbeux d’une
+requête <code class="docutils literal notranslate"><span class="pre">GET</span></code> pour l’hote duckduckgo.com pour la ressource / en ajoutant
+l’en-tête <code class="docutils literal notranslate"><span class="pre">Accept</span></code> avec la valeur <code class="docutils literal notranslate"><span class="pre">text/html</span></code>. Le corps de la
+réponse est sauvegardé dans /dev/null, c’est-à-dire nulle part, afin que
+le terminal n’affiche que la ligne de statut et les en-têtes de la
+réponse.</p>
+<p>Utilisation avancée de cURL</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>curl -v -X POST -H <span class="s2">&quot;Content-type: application/json&quot;</span> --data-binary <span class="s1">&#39;@monfichier.json&#39;</span> http://site.web.fr/
+</pre></div>
+</div>
+</div>
+<div class="exercice admonition">
+<p class="admonition-title">utilisation d’une API Web</p>
+<p>Vous devez utiliser l’API Web du site
+<a class="reference external" href="http://rest-bookmarks.herokuapp.com">http://rest-bookmarks.herokuapp.com</a> pour réaliser les opérations
+suivantes :</p>
+<ul class="simple">
+<li><p>Créer une nouvelle ressource bookmark (montrez qu’il est possible
+d’utiliser deux méthodes HTTP différentes)</p></li>
+<li><p>Mettre à jour la ressource bookmark que vous avez créée</p></li>
+<li><p>Supprimer la ressource bookmark que vous avez créée</p></li>
+</ul>
+<p>Écrivez le cahier de tests correspondant à ces trois opérations.</p>
+<p>Utilisez des commandes cURL pour réaliser la campagne de test.</p>
+<p>Essayez de scripter l’exécution de ces tests pour pouvoir réaliser la
+campagne automatiquement.</p>
+</div>
 </div>
 </div>
 </div>
