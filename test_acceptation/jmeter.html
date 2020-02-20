@@ -1,0 +1,468 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="fr" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="fr" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Automatisation des tests avec JMeter &mdash; Documentation Tests d&#39;intégration et d&#39;acceptation </title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script type="text/javascript" src="../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom_rtd_theme.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Recherche" href="../search.html" />
+    <link rel="prev" title="Les tests d’acceptation et d’intégration" href="test_acceptation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Tests d'intégration et d'acceptation
+          
+
+          
+          </a>
+
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Recherche dans les pages" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Les tests d'acceptation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="test_acceptation.html">Les tests d’acceptation et d’intégration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="test_acceptation.html#introduction">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#les-7-principes-des-tests">Les 7 principes des tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#les-differents-types-de-test">Les différents types de test</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="test_acceptation.html#les-tests-d-acceptation">Les tests d’acceptation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#recette-fonctionnelle">Recette fonctionnelle</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#test-d-acceptation-agile">Test d’acceptation agile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#notion-de-cas-de-test">Notion de cas de test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#scenario-de-test">Scénario de test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#rapport-de-test">Rapport de test</a></li>
+<li class="toctree-l3"><a class="reference internal" href="test_acceptation.html#exercice">Exercice</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Automatisation des tests avec JMeter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-et-lancement">Installation et lancement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#principe-d-un-plan-de-test">Principe d’un plan de test</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#les-thread-groups-moteurs-d-utilisateurs">Les <em>thread groups</em> (moteurs d’utilisateurs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-samplers-echantillons">Les <em>samplers</em> (échantillons)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-listeners-recepteurs">Les <em>listeners</em> (récepteurs)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-logic-controllers-les-controleurs-logiques">Les <em>logic controllers</em> (les contrôleurs logiques)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-configuration-elements-les-configurations">Les <em>configuration elements</em> (les configurations)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-assertions">Les <em>assertions</em></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-pre-processeurs-et-les-post-processeurs">Les pré-processeurs et les post-processeurs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#les-timers-compteurs-de-temps">Les <em>timers</em> (compteurs de temps)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#utilisation-des-variables">Utilisation des variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#executer-une-campagne-de-test-mode-sans-ihm">Exécuter une campagne de test (mode sans IHM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#exercices">Exercices</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Tests d'intégration et d'acceptation</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Accueil</a> &raquo;</li>
+        
+      <li>Automatisation des tests avec JMeter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <div class="rst-breadcrumbs-buttons" role="navigation" aria-label="breadcrumb navigation">
+      
+      
+        <a href="test_acceptation.html" class="btn btn-neutral" title="Les tests d’acceptation et d’intégration" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Précédent</a>
+      
+  </div>
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="automatisation-des-tests-avec-jmeter">
+<h1>Automatisation des tests avec JMeter<a class="headerlink" href="#automatisation-des-tests-avec-jmeter" title="Lien permanent vers ce titre">¶</a></h1>
+<p><a class="reference external" href="https://jmeter.apache.org/">JMeter</a> est un outil <em>open source</em> permettant l’automatisation de tests de charge.
+Il peut également être utilisé pour automatiser les tests d’acceptation (appelés
+tests fonctionnels dans la documentation de <a class="reference external" href="https://jmeter.apache.org/">JMeter</a>).</p>
+<p><a class="reference external" href="https://jmeter.apache.org/">JMeter</a> est un outil adapté pour le test de sites Web, d’API Web et de services Web
+même si <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> peut également être utilisé dans d’autres contextes (tests de base
+de données, FTP, mail…).</p>
+<div class="section" id="installation-et-lancement">
+<h2>Installation et lancement<a class="headerlink" href="#installation-et-lancement" title="Lien permanent vers ce titre">¶</a></h2>
+<p><a class="reference external" href="https://jmeter.apache.org/">JMeter</a> est téléchargeable à cette adresse :</p>
+<blockquote>
+<div><p><a class="reference external" href="https://jmeter.apache.org/download_jmeter.cgi">https://jmeter.apache.org/download_jmeter.cgi</a></p>
+</div></blockquote>
+<p><a class="reference external" href="https://jmeter.apache.org/">JMeter</a> est une application Java qui requière au minimum l’installation de Java 1.8.
+Pour finir l’installation, il suffit de désarchiver le fichier téléchargé n’importe
+où sur le disque.</p>
+<p>À l’intérieur du répertoire créé, on trouve un répertoire <code class="file docutils literal notranslate"><span class="pre">bin</span></code> qui contient
+un ensemble de scripts pour lancer <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> avec une interface graphique ou sans
+interface graphique. Ce dernier mode est utile pour le lancement de campagnes de test de charge.</p>
+<p>Les scripts <code class="file docutils literal notranslate"><span class="pre">bin/jmeter.bat</span></code> et <code class="file docutils literal notranslate"><span class="pre">bin/jmeter.sh</span></code> permettent de lancer
+l’interface graphique de l’outil respectivement sous Windows et sous MacOS / Linux.</p>
+</div>
+<div class="section" id="principe-d-un-plan-de-test">
+<h2>Principe d’un plan de test<a class="headerlink" href="#principe-d-un-plan-de-test" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L’interface graphique de <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> permet de concevoir et d’exécuter des plans
+de test. Un plan de test se présente sous la forme d’une arborescence contenant
+des composants qui vont définir les étapes à exécuter.</p>
+<p>Généralement, un composant qui se trouve dans l’arborescence sous un autre composant
+ne s’applique que pour ce composant.</p>
+<div class="exercice admonition">
+<p class="admonition-title">Plan de test d’exemple</p>
+<p>Vous pouvez télécharger un plan de test d’exemple : <a class="reference download internal" download="" href="../_downloads/8a5f5ff93802fd5162fd437104f83f1f/duckduckgo.jmx"><code class="xref download docutils literal notranslate"><span class="pre">duckduckgo.jmx</span></code></a>.
+Ce plan de test exécute des requêtes HTTP vers le moteur DuckDuckGo.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Astuce</p>
+<p>La documentation de <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> propose une introduction pour la construction
+d’un plan de test pour le Web :</p>
+<blockquote>
+<div><p><a class="reference external" href="https://jmeter.apache.org/usermanual/build-web-test-plan.html">https://jmeter.apache.org/usermanual/build-web-test-plan.html</a></p>
+</div></blockquote>
+<p>Vous pouvez vous y reporter pour une introduction aux principaux composants
+qui sont utiles pour réaliser ce type de plan de test.</p>
+</div>
+<p>Nous présentons dans les sections ci-dessous les familles des composants disponibles.</p>
+<div class="section" id="les-thread-groups-moteurs-d-utilisateurs">
+<h3>Les <em>thread groups</em> (moteurs d’utilisateurs)<a class="headerlink" href="#les-thread-groups-moteurs-d-utilisateurs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Un <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Thread_Group">thread group</a> est l’élément de base d’un plan de test. Chaque utilisateur
+est représenté par un thread qui va exécuter l’ensemble du plan de test. Pour
+simuler la montée en charge d’un serveur, on peut configurer plusieurs <em>threads</em>,
+c’est-à-dire plusieurs utilisateurs réalisant le même plan de test en parallèle. Il
+est possible de répéter le plan de test un certain nombre de fois ou durant
+une période de temps.</p>
+<p>Un <em>thread group</em> est généralement placé directement sous le plan de test dans
+l’arborescence des composants.</p>
+</div>
+<div class="section" id="les-samplers-echantillons">
+<h3>Les <em>samplers</em> (échantillons)<a class="headerlink" href="#les-samplers-echantillons" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">samplers</a> réalisent une action avec le système à tester. Pour le test
+d’une application Web ou d’une API Web, le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request">HTTP Request</a> est le sampler le plus
+utile. Il permet de programmer une requête vers un serveur Web.</p>
+</div>
+<div class="section" id="les-listeners-recepteurs">
+<h3>Les <em>listeners</em> (récepteurs)<a class="headerlink" href="#les-listeners-recepteurs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#listeners">listeners</a> sont chargés de récupérer les données produites par les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">samplers</a>
+afin de produire des résultats de tests. Il existe des <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#listeners">listeners</a> pour produire
+des rapports et des graphes de résultats.</p>
+<ul class="simple">
+<li><p>Le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#View_Results_Tree">View Results Tree</a> est un récepteur qui permet de consulter le résultat de
+chaque <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a>.</p></li>
+<li><p><a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Aggregate_Report">Aggregate Report</a> est un récepteur qui fournit un tableau synthétique des
+performances de chaque <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a>.</p></li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Astuce</p>
+<p>Certains <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#listeners">listeners</a> comme le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#View_Results_Tree">View Results Tree</a> ne doivent pas être utilisés
+lors d’une campagne de charge car leur utilisation pénalise les performances
+de l’outil.</p>
+</div>
+</div>
+<div class="section" id="les-logic-controllers-les-controleurs-logiques">
+<h3>Les <em>logic controllers</em> (les contrôleurs logiques)<a class="headerlink" href="#les-logic-controllers-les-controleurs-logiques" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#logic_controllers">contrôleurs logiques</a> permettent de créer des plans de test complexes basés
+sur des conditions ou des répétitions. Par exemple, le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Loop_Controller">Loop Controller</a> permet
+d’exécuter plusieurs fois une partie du plan de test. Les contrôleurs logiques
+agissent sur les composants qui sont placés comme leur fils dans l’arborescence.</p>
+</div>
+<div class="section" id="les-configuration-elements-les-configurations">
+<h3>Les <em>configuration elements</em> (les configurations)<a class="headerlink" href="#les-configuration-elements-les-configurations" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#config_elements">configuration elements</a> permettent de réaliser des configurations centralisées.
+Pour le Web, on pourra utiliser :</p>
+<ul class="simple">
+<li><p>le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Cookie_Manager">HTTP Cookie Manager</a> qui permet de gérer automatiquement les cookies émis par un site.
+Il permet à JMeter d’avoir un comportement similaire à un navigateur Web.</p></li>
+<li><p>le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Header_Manager">HTTP Header Manager</a> qui permet de définir des en-têtes HTTP. Ces en-têtes seront ajoutés
+dans chaque requête émise. Il est ainsi possible de fournir un en-tête <code class="docutils literal notranslate"><span class="pre">user-agent</span></code>
+par défaut pour simuler un navigateur Web particulier.</p></li>
+<li><p>le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#HTTP_Request_Defaults">HTTP Request Defaults</a> qui permet de fournir des informations par défaut pour
+les requêtes HTTP émises : le schéma, l’hôte, le port et éventuellement des paramètres de requête.</p></li>
+<li><p>le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#User_Defined_Variables">User Defined Variables</a> qui permet de définir des variables.</p></li>
+</ul>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#config_elements">configuration elements</a> sont appliqués à tous les composants situés au même
+niveau de l’arborescence ou à un niveau inférieur. Il est généralement conseillé
+de les placer directement comme fils du plan de test ou d’un <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Thread_Group">thread group</a> pour
+plus de lisibilité.</p>
+</div>
+<div class="section" id="les-assertions">
+<h3>Les <em>assertions</em><a class="headerlink" href="#les-assertions" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#assertions">assertions</a> permettent de valider les données récupérées par les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">samplers</a>.
+Grâce à ce mécanisme, <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> peut être utilisé comme un outil d’automatisation
+de tests d’acceptation (<em>functional testing</em>). Généralement, les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#assertions">assertions</a> sont
+ajoutées comme filles d’un <em>sampler</em> pour valider sa réussite. L’assertion la plus
+simple à utiliser est la <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Response_Assertion">Response Assertion</a>.</p>
+<p>Un plan de test complet doit contenir au moins une assertion par <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a> afin
+de valider les scénarios de tests.</p>
+</div>
+<div class="section" id="les-pre-processeurs-et-les-post-processeurs">
+<h3>Les pré-processeurs et les post-processeurs<a class="headerlink" href="#les-pre-processeurs-et-les-post-processeurs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Comme leur nom l’indique, les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#preprocessors">pré-processeurs</a> et les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#postprocessors">post-processeurs</a> sont
+des composants qui sont exécutés respectivement avant et après chaque <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a>.
+Leur rôle est variable.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#User_Parameters">User Parameters</a> permet de définir la valeur de variables pour chaque <em>thread</em>,
+c’est-à-dire pour chaque utilisateur simulé.</p></li>
+<li><p>Les extracteurs permettent de créer des variables à partir de données extraites
+de la réponse obtenue par un <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a>. On peut extraire une donnée à partir
+d’un sélecteur CSS dans une page Web grâce au <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#CSS_Selector_Extractor">CSS Selector Extractor</a>. On
+peut extraire une donnée à partir d’un chemin XPath dans un document XML grâce
+au <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#XPath2_Extractor">XPath2 Extractor</a>. On peut extraire une donnée à partir d’un chemin JSON
+dans un document JSON grâce au <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#JSON_Extractor">JSON Extractor</a>.</p></li>
+</ul>
+</div>
+<div class="section" id="les-timers-compteurs-de-temps">
+<h3>Les <em>timers</em> (compteurs de temps)<a class="headerlink" href="#les-timers-compteurs-de-temps" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#timers">timers</a> permettent d’introduire des pauses dans l’exécution du plan de test.
+La durée de ces pauses peut être fixe ou aléatoire. Cela permet d’éviter de
+surcharger un serveur lors de tests fonctionnels. Cela permet également de simuler
+une activité plausible des utilisateurs d’un site Web.</p>
+<p>Une pause peut être appliquée à un <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a> spécifique. Dans ce cas, le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#timers">timer</a>
+doit être fils du <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a>. Si plusieurs <em>timers</em> sont applicables au même <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a>
+alors <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> additionne les effets de tous les <em>timers</em>.</p>
+<p>Par exemple, le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Constant_Timer">Constant Timer</a>, comme son nom l’indique, permet de spécifier
+une pause en millisecondes.</p>
+<div class="admonition tip">
+<p class="admonition-title">Astuce</p>
+<p>Pour simuler le temps de réflexion d’un utilisateur (<em>think time</em>) à un moment
+précis du plan de test, vous pouvez utiliser le <em>sampler</em> <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#Flow_Control_Action">Flow Control Action</a>.
+Il s’agit d’un <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">sampler</a> particulier car il n’interagit pas avec le système
+à tester et ne produit pas de résultat. Il permet simplement d’introduire une
+pause… voire même un arrêt du <em>thread</em>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="utilisation-des-variables">
+<h2>Utilisation des variables<a class="headerlink" href="#utilisation-des-variables" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Il est possible d’utiliser des variables dans un plan de test. On peut déclarer
+des variables directement sur le plan de test et rendre celui-ci configurable.
+On peut également déclarer des variables grâce au composant <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#User_Defined_Variables">User Defined Variables</a> et
+au composant <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#User_Parameters">User Parameters</a>. Les extracteurs permettent également de créer des variables
+contenant les données extraites.</p>
+<p>Les variables peuvent notamment être référencées dans les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#assertions">assertions</a> et les <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#samplers">samplers</a>
+sous la forme :</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>${nomDeLaVariable}
+</pre></div>
+</div>
+<p>Il est donc facile de créer des assertions ou de passer des paramètres à des
+requêtes HTTP à partir d’informations extraites d’une précédente réponse ou à
+partir d’un paramètre du plan de test lui-même.</p>
+</div>
+<div class="section" id="executer-une-campagne-de-test-mode-sans-ihm">
+<h2>Exécuter une campagne de test (mode sans IHM)<a class="headerlink" href="#executer-une-campagne-de-test-mode-sans-ihm" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L’interface graphique de <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> permet de créer et d’exécuter des plans de test.
+Cependant, l’exécution de plan de test (et spécifiquement des plans de test de charge)
+devrait se faire sans interface graphique pour ne pas subir de ralentissement
+dû à l’interface elle-même.</p>
+<p>Il est possible de lancer une campagne de test sans interface graphique avec la
+commande :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>jmeter -n -t <span class="o">[</span>fichier jms de campagne<span class="o">]</span> -l <span class="o">[</span>fichier de résultat<span class="o">]</span> -e -o <span class="o">[</span>repertoire de sortie du rapport<span class="o">]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Par convention, le fichier de résultat spécifié avec le paramètre <code class="docutils literal notranslate"><span class="pre">-l</span></code> devrait
+avoir une extension <code class="docutils literal notranslate"><span class="pre">.jtl</span></code>. Ce fichier peut ensuite être chargé dans l’interface
+graphique avec un <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#listeners">listener</a> comme le <a class="reference external" href="https://jmeter.apache.org/usermanual/component_reference.html#View_Results_Tree">View Results Tree</a>.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Astuce</p>
+<p>Sous Windows, vous pouvez glisser/déposer un fichier <code class="docutils literal notranslate"><span class="pre">.jmx</span></code> sur le fichier
+<code class="file docutils literal notranslate"><span class="pre">jmeter-n.cmd</span></code> pour lancer une campagne de test sans interface graphique.</p>
+</div>
+</div>
+<div class="section" id="exercices">
+<h2>Exercices<a class="headerlink" href="#exercices" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="exercice admonition">
+<p class="admonition-title">test d’une API Web</p>
+<p>Vous devez tester l’application de gestion des commandes de pizza.
+L’application est accessible à l’adresse : <a class="reference external" href="https://pizzaee.herokuapp.com">https://pizzaee.herokuapp.com</a></p>
+<p>Vous devez tester :</p>
+<ul class="simple">
+<li><p>la commande d’une pizza,</p></li>
+<li><p>l’échec de la commande de pizza à cause du numéro de téléphone manquant,</p></li>
+<li><p>la préparation d’une pizza.</p></li>
+</ul>
+<p>Utilisez <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> pour automatiser les tests de ce site Web.</p>
+<p>Pour chaque <em>sampler</em>, vous devez ajouter une ou plusieurs assertions qui
+vous paraissent pertinentes pour valider l’exécution du <em>sampler</em>.</p>
+<p>Modifiez les noms par défaut de chaque composant de votre plan de test avec
+de faciliter la relecture et la compréhension de votre plan de test.</p>
+</div>
+<div class="exercice admonition">
+<p class="admonition-title">test d’un site Web</p>
+<p>Vous devez tester l’API Web du site
+<a class="reference external" href="https://rest-bookmarks.herokuapp.com">https://rest-bookmarks.herokuapp.com</a> pour réaliser les opérations
+suivantes :</p>
+<ul class="simple">
+<li><p>Créer une nouvelle ressource bookmark</p></li>
+<li><p>Mettre à jour la ressource bookmark que vous avez créée</p></li>
+<li><p>Supprimer la ressource bookmark que vous avez créée</p></li>
+</ul>
+<p>Utilisez <a class="reference external" href="https://jmeter.apache.org/">JMeter</a> pour automatiser les tests de cette API Web.</p>
+<p>Pour chaque <em>sampler</em>, vous devez ajouter une ou plusieurs assertions qui
+vous paraissent pertinentes pour valider l’exécution du <em>sampler</em>.</p>
+<p>Modifiez les noms par défaut de chaque composant de votre plan de test avec
+de faciliter la relecture et la compréhension de votre plan de test.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="test_acceptation.html" class="btn btn-neutral float-left" title="Les tests d’acceptation et d’intégration" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Précédent</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright David Gayerie - david.gayerie@reseau-cd.net - CC-BY-SA
+
+    </p>
+  </div>
+    <div>Téléchargez ce support au format <a class="reference download" href="https://github.com/spoonless/epsi-i1-test/archive/gh-pages.zip">HTML</a>
+    </div>
+
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
